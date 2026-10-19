@@ -1,0 +1,146 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'VT323', monospace;
+}
+
+body {
+  background-color: #000000;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 10px;
+}
+
+.game-container {
+  width: 100%;
+  max-width: 600px;
+  background-color: #000000;
+  border: 4px solid #ffffff;
+  padding: 20px;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+.screen {
+  display: none;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.screen.active {
+  display: flex !important;
+}
+
+.game-title {
+  color: #ffff00;
+  text-align: center;
+  font-size: 2.2rem;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px #ff0000;
+}
+
+.dialog-box {
+  border: 3px solid #ffffff;
+  padding: 15px;
+  background-color: #000000;
+  min-height: 100px;
+}
+
+.dialog-text {
+  font-size: 1.4rem;
+  line-height: 1.3;
+  color: #ffffff;
+}
+
+input[type="text"] {
+  background: #000;
+  border: 3px solid #fff;
+  color: #ffff00;
+  font-size: 1.5rem;
+  padding: 10px;
+  text-align: center;
+  outline: none;
+}
+
+.btn {
+  background-color: #000000;
+  color: #ffffff;
+  border: 3px solid #ffffff;
+  padding: 10px 15px;
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  text-align: center;
+}
+
+.btn:hover, .btn:focus {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.btn:hover::before {
+  content: "♥ ";
+  color: #ff0000;
+}
+
+.character-box {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-bottom: 2px dashed #fff;
+  padding-bottom: 10px;
+}
+
+.avatar {
+  font-size: 2.5rem;
+  border: 2px solid #fff;
+  padding: 5px 10px;
+  background-color: #111;
+}
+
+.character-info {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.3rem;
+  color: #ff00ff;
+}
+
+.options-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.reward-box {
+  text-align: center;
+  border: 3px solid #ffff00;
+  padding: 15px;
+  color: #ffff00;
+  font-size: 1.5rem;
+}
+
+.reward-icon {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+@media (max-width: 480px) {
+  .game-title {
+    font-size: 1.8rem;
+  }
+  .dialog-text {
+    font-size: 1.2rem;
+  }
+  .btn {
+    font-size: 1.2rem;
+  }
+}

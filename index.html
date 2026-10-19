@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jornada da Probabilidade - Undertale Style</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="game-container">
+    <!-- Tela 1: Login / Nome -->
+    <div id="screen-login" class="screen active">
+      <h1 class="game-title">★ PROBABILITY TALE ★</h1>
+      <p class="dialog-text">Era uma vez, no mundo dos Números... Um jovem viajante precisava encarar os enigmas do Acaso.</p>
+      <p class="dialog-text">Qual é o seu nome, humano?</p>
+      <input type="text" id="player-name" placeholder="Digite seu nome..." maxlength="15" autocomplete="off" />
+      <button class="btn" onclick="startGame()">ENTRAR</button>
+    </div>
+
+    <!-- Tela 2: História e Perguntas -->
+    <div id="screen-game" class="screen">
+      <div class="character-box">
+        <div id="character-avatar" class="avatar">🐶</div>
+        <div class="character-info">
+          <span id="display-player-name">Viajante</span>
+          <span id="score-display">Pontos: 0</span>
+        </div>
+      </div>
+
+      <div class="dialog-box">
+        <p id="narrative-text" class="dialog-text"></p>
+      </div>
+
+      <div id="options-container" class="options-box">
+        <!-- Botões gerados via JS -->
+      </div>
+    </div>
+
+    <!-- Tela 3: Final / Recompensa -->
+    <div id="screen-end" class="screen">
+      <h1 id="end-title">FIM DA JORNADA</h1>
+      <div class="dialog-box">
+        <p id="end-message" class="dialog-text"></p>
+      </div>
+      <div id="reward-box" class="reward-box hidden">
+        <span class="reward-icon">🏆✨💎</span>
+        <p>Você ganhou a **Coroa Divina da Probabilidade**!</p>
+      </div>
+      <button class="btn" onclick="restartGame()">JOGAR NOVAMENTE</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
