@@ -1,6 +1,7 @@
 let playerName = "";
 let currentQuestionIndex = 0;
 let score = 0;
+let isAnsweringBlocked = false;
 const pointsPerQuestion = 2;
 
 const storyQuestions = [
@@ -24,7 +25,7 @@ const storyQuestions = [
   },
   {
     avatar: "🐸",
-    narrative: "O Sapo Sábio coaxa na beira do lago: 'Lançamos uma moeda honesta 2 vezes seguidas (Árvore de Probabilidades). Qual a chance de obter pelo menos uma Cara?'",
+    narrative: "O Sapo Sábio coaxa na beira do lago: 'Lançamos uma moeda honesta 2 vezes seguidas. Qual a chance de obter pelo menos uma Cara?'",
     options: [
       { text: "A) 1/4 (25%)", correct: false },
       { text: "B) 3/4 (75%)", correct: true },
@@ -51,6 +52,15 @@ const storyQuestions = [
   }
 ];
 
+document.addEventListener("DOMContentLoaded", () => {
+  const nameInput = document.getElementById("player-name");
+  nameInput.addEventListener("keypress", (event) => {
+    if (event.key === "Enter") {
+      startGame();
+    }
+  });
+});
+
 function startGame() {
   const nameInput = document.getElementById("player-name").value.trim();
   if (!nameInput) {
@@ -71,6 +81,7 @@ function switchScreen(fromId, toId) {
 }
 
 function loadQuestion() {
+  isAnsweringBlocked = false;
   const q = storyQuestions[currentQuestionIndex];
   
   document.getElementById("character-avatar").innerText = q.avatar;
@@ -83,24 +94,32 @@ function loadQuestion() {
     const btn = document.createElement("button");
     btn.className = "btn";
     btn.innerText = option.text;
-    btn.onclick = () => selectAnswer(option.correct);
+    btn.onclick = (e) => selectAnswer(option.correct, e.target);
     optionsContainer.appendChild(btn);
   });
 }
 
-function selectAnswer(isCorrect) {
+function selectAnswer(isCorrect, buttonElement) {
+  if (isAnsweringBlocked) return;
+  isAnsweringBlocked = true;
+
   if (isCorrect) {
     score += pointsPerQuestion;
     document.getElementById("score-display").innerText = `Pontos: ${score}`;
-  }
-
-  currentQuestionIndex++;
-
-  if (currentQuestionIndex < storyQuestions.length) {
-    loadQuestion();
+    buttonElement.classList.add("correct-choice");
   } else {
-    endGame();
+    buttonElement.classList.add("wrong-choice");
   }
+
+  setTimeout(() => {
+    currentQuestionIndex++;
+
+    if (currentQuestionIndex < storyQuestions.length) {
+      loadQuestion();
+    } else {
+      endGame();
+    }
+  }, 700);
 }
 
 function endGame() {
@@ -114,7 +133,7 @@ function endGame() {
     endMessage.innerText = `INCRÍVEL, ${playerName}! Você respondeu todas as perguntas corretamente e acumulou ${score} de ${totalPossible} pontos! O reino da Probabilidade está salvo!`;
     rewardBox.classList.remove("hidden");
   } else {
-    endMessage.innerText = `Muito bem, ${playerName}! Você fez ${score} de ${totalPossible} pontos. Com mais um pouco de treino em probabilidade condicional, você conseguirá a recompensa máxima!`;
+    endMessage.innerText = `Muito bem, ${playerName}! Você fez ${score} de ${totalPossible} pontos. Com mais um pouco de treino em probabilidade, você conseguirá a recompensa máxima!`;
     rewardBox.classList.add("hidden");
   }
 }
@@ -123,5 +142,6 @@ function restartGame() {
   currentQuestionIndex = 0;
   score = 0;
   document.getElementById("score-display").innerText = `Pontos: 0`;
+  document.getElementById("player-name").value = "";
   switchScreen("screen-end", "screen-login");
 }

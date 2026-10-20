@@ -13,6 +13,7 @@ body {
   align-items: center;
   min-height: 100vh;
   padding: 10px;
+  user-select: none;
 }
 
 .game-container {
@@ -47,7 +48,7 @@ body {
   border: 3px solid #ffffff;
   padding: 15px;
   background-color: #000000;
-  min-height: 100px;
+  min-height: 110px;
 }
 
 .dialog-text {
@@ -66,6 +67,10 @@ input[type="text"] {
   outline: none;
 }
 
+input[type="text"]:focus {
+  border-color: #ffff00;
+}
+
 .btn {
   background-color: #000000;
   color: #ffffff;
@@ -73,18 +78,32 @@ input[type="text"] {
   padding: 10px 15px;
   font-size: 1.4rem;
   cursor: pointer;
-  transition: all 0.1s ease;
-  text-align: center;
+  transition: background-color 0.1s ease, color 0.1s ease;
+  text-align: left;
 }
 
 .btn:hover, .btn:focus {
   background-color: #ffffff;
   color: #000000;
+  outline: none;
 }
 
-.btn:hover::before {
+.btn:hover::before, .btn:focus::before {
   content: "♥ ";
   color: #ff0000;
+}
+
+/* Classes para feedback das respostas */
+.btn.correct-choice {
+  background-color: #008000 !important;
+  color: #ffffff !important;
+  border-color: #00ff00 !important;
+}
+
+.btn.wrong-choice {
+  background-color: #8b0000 !important;
+  color: #ffffff !important;
+  border-color: #ff0000 !important;
 }
 
 .character-box {
@@ -100,6 +119,9 @@ input[type="text"] {
   border: 2px solid #fff;
   padding: 5px 10px;
   background-color: #111;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .character-info {
